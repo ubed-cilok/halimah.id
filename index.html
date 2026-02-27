@@ -343,30 +343,28 @@
     }
 
     window.onload = loadDropdowns;
-
+	
+// KODE KANGGO TOMBOL INSTALL PWA
     let deferredPrompt;
-const btnInstall = document.getElementById('btnInstall');
+    const btnInstall = document.getElementById('btnInstall');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Nyegah Chrome nembongkeun pop-up bawaan
-  e.preventDefault();
-  deferredPrompt = e;
-  // Munculkeun tombol install jieunan urang
-  btnInstall.style.display = 'inline-block';
-});
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      btnInstall.style.display = 'inline-block'; // Tombol otomatis kaluar mun can di-install
+    });
 
-btnInstall.addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      btnInstall.style.display = 'none';
-    }
-    deferredPrompt = null;
-  }
-});
+    btnInstall.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          btnInstall.style.display = 'none'; // Tombol leungit mun geus di-install
+        }
+        deferredPrompt = null;
+      }
+    });
+	
   </script>
 </body>
-
 </html>
-
